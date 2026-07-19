@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>WildCraft.io</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -10,7 +10,6 @@
 
     <canvas id="gameCanvas"></canvas>
 
-    <!-- ТЕКСТОВЫЙ ЛОГ ДОБЫЧИ (СНИЗУ СЛЕВА) -->
     <div id="loot-log"></div>
 
     <!-- СТАРТОВОЕ МЕНЮ -->
@@ -26,7 +25,6 @@
     <!-- ИГРОВОЙ ИНТЕРФЕЙС -->
     <div id="game-ui" class="hidden">
         
-        <!-- МИНИ-КАРТА / РАДАР -->
         <div id="radar-container">
             <canvas id="radarCanvas" width="180" height="120"></canvas>
         </div>
@@ -44,50 +42,26 @@
             <div class="window-content">
                 <div class="res-item">Wood: <span id="res-wood">0</span></div>
                 <div class="res-item">Stone: <span id="res-stone">0</span></div>
-                <div class="res-item">Gold: <span id="res-gold">0</span></div>
                 <div class="res-item">Meat: <span id="res-meat">0</span></div>
             </div>
         </div>
 
-        <!-- ПОЛНЫЙ СПИСОК КРАФТА -->
         <div id="craft-window" class="game-window hidden">
             <div class="window-header">
-                <h3>Crafting Recipes</h3>
+                <h3>Crafting</h3>
                 <button class="close-btn" onclick="toggleWindow('craft-window')">×</button>
             </div>
             <div class="window-content grid">
-                <div class="craft-item" onclick="craftItem('axe')">
-                    <div class="item-name">Axe</div>
-                    <div class="item-cost">20 Wood, 10 Stone</div>
-                </div>
-                <div class="craft-item" onclick="craftItem('pickaxe')">
-                    <div class="item-name">Pickaxe</div>
-                    <div class="item-cost">20 Wood, 15 Stone</div>
-                </div>
-                <div class="craft-item" onclick="craftItem('sword')">
-                    <div class="item-name">Sword</div>
-                    <div class="item-cost">30 Wood, 20 Stone</div>
-                </div>
-                <div class="craft-item" onclick="craftItem('wood_wall')">
-                    <div class="item-name">Wood Wall</div>
-                    <div class="item-cost">10 Wood</div>
-                </div>
-                <div class="craft-item" onclick="craftItem('stone_wall')">
-                    <div class="item-name">Stone Wall</div>
-                    <div class="item-cost">15 Stone</div>
-                </div>
-                <div class="craft-item" onclick="craftItem('spike')">
-                    <div class="item-name">Spike</div>
-                    <div class="item-cost">10 Wood, 5 Stone</div>
-                </div>
-                <div class="craft-item" onclick="craftItem('door')">
-                    <div class="item-name">Door</div>
-                    <div class="item-cost">20 Wood</div>
-                </div>
+                <div class="craft-item" onclick="craftItem('axe')"><div class="item-name">Axe</div><div class="item-cost">20 Wood, 10 Stone</div></div>
+                <div class="craft-item" onclick="craftItem('pickaxe')"><div class="item-name">Pickaxe</div><div class="item-cost">20 Wood, 15 Stone</div></div>
+                <div class="craft-item" onclick="craftItem('sword')"><div class="item-name">Sword</div><div class="item-cost">30 Wood, 20 Stone</div></div>
+                <div class="craft-item" onclick="craftItem('wood_wall')"><div class="item-name">Wood Wall</div><div class="item-cost">10 Wood</div></div>
+                <div class="craft-item" onclick="craftItem('stone_wall')"><div class="item-name">Stone Wall</div><div class="item-cost">15 Stone</div></div>
+                <div class="craft-item" onclick="craftItem('spike')"><div class="item-name">Spike</div><div class="item-cost">10 Wood, 5 Stone</div></div>
+                <div class="craft-item" onclick="craftItem('door')"><div class="item-name">Door</div><div class="item-cost">20 Wood</div></div>
             </div>
         </div>
 
-        <!-- ХОТБАР -->
         <div id="hotbar">
             <div class="slot active" data-slot="1"><span>1</span><div class="slot-icon">Empty</div></div>
             <div class="slot" data-slot="2"><span>2</span><div class="slot-icon">Empty</div></div>
@@ -95,6 +69,18 @@
             <div class="slot" data-slot="4"><span>4</span><div class="slot-icon">Empty</div></div>
             <div class="slot" data-slot="5"><span>5</span><div class="slot-icon">Empty</div></div>
         </div>
+
+        <!-- МОБИЛЬНОЕ УПРАВЛЕНИЕ -->
+        <div id="mobile-controls" class="hidden">
+            <div id="joystick-zone">
+                <div id="joystick-knob"></div>
+            </div>
+            <div id="action-buttons">
+                <button id="btn-mob-pickup" class="mob-btn">✋</button>
+                <button id="btn-mob-attack" class="mob-btn">⚔️</button>
+            </div>
+        </div>
+
     </div>
 
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
