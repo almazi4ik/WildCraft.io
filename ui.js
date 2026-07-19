@@ -1,3 +1,7 @@
+document.getElementById('btn-play').addEventListener('click', () => {
+    document.getElementById('main-menu').style.display = 'none';
+});
+
 window.keys = { w: false, a: false, s: false, d: false };
 
 window.addEventListener('keydown', (e) => {
@@ -10,21 +14,16 @@ window.addEventListener('keyup', (e) => {
     if (window.keys.hasOwnProperty(key)) window.keys[key] = false;
 });
 
-// Отправляем управление на сервер часто, чтобы не было задержки отклика
 setInterval(() => {
-    let dx = 0;
-    let dy = 0;
-
+    let dx = 0; let dy = 0;
     if (window.keys.w) dy -= 1;
     if (window.keys.s) dy += 1;
     if (window.keys.a) dx -= 1;
     if (window.keys.d) dx += 1;
 
     if (dx !== 0 || dy !== 0) {
-        // Нормализация вектора (чтобы по диагонали не бегать быстрее)
         const length = Math.sqrt(dx * dx + dy * dy);
-        dx /= length;
-        dy /= length;
+        dx /= length; dy /= length;
         window.socket.emit('move', { dx, dy });
     }
 }, 1000 / 60);
