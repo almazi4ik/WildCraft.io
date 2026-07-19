@@ -1,89 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WildCraft.io</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+    <div id="ui-layer">
+        <h1 id="logo">WildCraft.io</h1>
+        <!-- Позже добавим сюда инвентарь и крафт -->
+    </div>
+    
     <canvas id="gameCanvas"></canvas>
 
-    <div id="loot-log"></div>
-
-    <!-- СТАРТОВОЕ МЕНЮ -->
-    <div id="main-menu">
-        <div class="menu-box">
-            <h1 class="game-logo">WildCraft.io</h1>
-            <div id="connection-status" style="color: #ffaa00; margin-bottom: 15px; font-weight: bold;">Connecting to server...</div>
-            <input type="text" id="nickname-input" placeholder="Enter nickname..." maxlength="15" value="Player">
-            <button id="btn-play" onclick="startGame()">PLAY</button>
-        </div>
-    </div>
-
-    <!-- ИГРОВОЙ ИНТЕРФЕЙС -->
-    <div id="game-ui" class="hidden">
-        
-        <div id="radar-container">
-            <canvas id="radarCanvas" width="180" height="120"></canvas>
-        </div>
-
-        <div id="left-menu-container">
-            <button id="btn-inventory" class="menu-btn" onclick="toggleWindow('inventory-window')">Inventory (I)</button>
-            <button id="btn-craft" class="menu-btn" onclick="toggleWindow('craft-window')">Craft (C)</button>
-        </div>
-
-        <div id="inventory-window" class="game-window hidden">
-            <div class="window-header">
-                <h3>Inventory</h3>
-                <button class="close-btn" onclick="toggleWindow('inventory-window')">×</button>
-            </div>
-            <div class="window-content">
-                <div class="res-item">Wood: <span id="res-wood">0</span></div>
-                <div class="res-item">Stone: <span id="res-stone">0</span></div>
-                <div class="res-item">Meat: <span id="res-meat">0</span></div>
-            </div>
-        </div>
-
-        <div id="craft-window" class="game-window hidden">
-            <div class="window-header">
-                <h3>Crafting</h3>
-                <button class="close-btn" onclick="toggleWindow('craft-window')">×</button>
-            </div>
-            <div class="window-content grid">
-                <div class="craft-item" onclick="craftItem('axe')"><div class="item-name">Axe</div><div class="item-cost">20 Wood, 10 Stone</div></div>
-                <div class="craft-item" onclick="craftItem('pickaxe')"><div class="item-name">Pickaxe</div><div class="item-cost">20 Wood, 15 Stone</div></div>
-                <div class="craft-item" onclick="craftItem('sword')"><div class="item-name">Sword</div><div class="item-cost">30 Wood, 20 Stone</div></div>
-                <div class="craft-item" onclick="craftItem('wood_wall')"><div class="item-name">Wood Wall</div><div class="item-cost">10 Wood</div></div>
-                <div class="craft-item" onclick="craftItem('stone_wall')"><div class="item-name">Stone Wall</div><div class="item-cost">15 Stone</div></div>
-                <div class="craft-item" onclick="craftItem('spike')"><div class="item-name">Spike</div><div class="item-cost">10 Wood, 5 Stone</div></div>
-                <div class="craft-item" onclick="craftItem('door')"><div class="item-name">Door</div><div class="item-cost">20 Wood</div></div>
-            </div>
-        </div>
-
-        <div id="hotbar">
-            <div class="slot active" data-slot="1"><span>1</span><div class="slot-icon">Empty</div></div>
-            <div class="slot" data-slot="2"><span>2</span><div class="slot-icon">Empty</div></div>
-            <div class="slot" data-slot="3"><span>3</span><div class="slot-icon">Empty</div></div>
-            <div class="slot" data-slot="4"><span>4</span><div class="slot-icon">Empty</div></div>
-            <div class="slot" data-slot="5"><span>5</span><div class="slot-icon">Empty</div></div>
-        </div>
-
-        <!-- МОБИЛЬНОЕ УПРАВЛЕНИЕ -->
-        <div id="mobile-controls" class="hidden">
-            <div id="joystick-zone">
-                <div id="joystick-knob"></div>
-            </div>
-            <div id="action-buttons">
-                <button id="btn-mob-pickup" class="mob-btn">✋</button>
-                <button id="btn-mob-attack" class="mob-btn">⚔️</button>
-            </div>
-        </div>
-
-    </div>
-
-    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <!-- Сначала Socket.io, потом сеть, управление, и только потом отрисовка -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="network.js"></script>
     <script src="ui.js"></script>
+    <script src="render.js"></script>
 </body>
 </html>
