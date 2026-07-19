@@ -98,3 +98,48 @@ body {
     80% { opacity: 1; }
     100% { opacity: 0; transform: translateY(-20px); }
 }
+
+/* Мобильное управление (по умолчанию скрыто) */
+#mobile-controls {
+    display: none;
+    pointer-events: auto;
+}
+
+@media (max-width: 800px) {
+    #mobile-controls { display: block; }
+    
+    /* Джойстик слева */
+    #joystick-zone {
+        position: absolute; bottom: 30px; left: 30px;
+        width: 120px; height: 120px;
+        background: rgba(0, 0, 0, 0.4); border-radius: 50%;
+        border: 2px solid rgba(255,255,255,0.2);
+        z-index: 50; touch-action: none;
+    }
+    #joystick-knob {
+        position: absolute; top: 35px; left: 35px;
+        width: 50px; height: 50px;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 50%; pointer-events: none;
+        transition: transform 0.05s;
+    }
+
+    /* Кнопки удара и подбора справа */
+    #action-buttons {
+        position: absolute; bottom: 30px; right: 30px;
+        display: flex; gap: 15px; z-index: 50;
+    }
+    .mob-btn {
+        width: 65px; height: 65px; border-radius: 50%;
+        background: rgba(0, 0, 0, 0.5); border: 2px solid #fff;
+        color: white; font-size: 26px; font-weight: bold;
+        display: flex; align-items: center; justify-content: center;
+        user-select: none; touch-action: manipulation;
+    }
+    .mob-btn:active { background: rgba(255, 255, 255, 0.3); }
+
+    /* Адаптация UI для телефонов */
+    #radar-container { top: 15px; right: 15px; bottom: auto; transform: scale(0.85); transform-origin: top right; }
+    #hotbar { bottom: 15px; transform: scale(0.8); }
+    #loot-log { bottom: 160px; left: 15px; }
+}
