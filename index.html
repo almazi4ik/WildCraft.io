@@ -1,59 +1,82 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CraftWars.io</title>
+    <title>WildCraft.io</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <canvas id="gameCanvas"></canvas>
 
-    <!-- СТАРТОВОЕ МЕНЮ ПО ЦЕНТРУ -->
+    <!-- СТАРТОВОЕ МЕНЮ -->
     <div id="main-menu">
         <div class="menu-box">
-            <h1 class="game-logo">CraftWars.io</h1>
-            <input type="text" id="nickname-input" placeholder="Никнейм..." maxlength="12" value="Рейнджер">
+            <h1 class="game-logo">WildCraft.io</h1>
+            <div id="connection-status" style="color: #ffaa00; margin-bottom: 15px; font-weight: bold;">Connecting to server...</div>
+            <input type="text" id="nickname-input" placeholder="Enter nickname..." maxlength="15" value="Player">
             <button id="btn-play" onclick="startGame()">PLAY</button>
-            <div id="connection-status">Подключение к серверу...</div>
         </div>
     </div>
 
     <!-- ИГРОВОЙ ИНТЕРФЕЙС -->
     <div id="game-ui" class="hidden">
+        
+        <!-- МИНИ-КАРТА / РАДАР (КРИТИЧЕСКИ ВАЖНО ДЛЯ ui.js) -->
+        <div id="radar-container" style="position: absolute; bottom: 20px; right: 20px; background: rgba(0,0,0,0.5); border: 3px solid #222; border-radius: 50%; overflow: hidden; width: 150px; height: 150px; z-index: 10;">
+            <canvas id="radarCanvas" width="150" height="150"></canvas>
+        </div>
+
         <div id="left-menu-container">
-            <button class="menu-btn" onclick="toggleWindow('inventory-window')">Рюкзак (I)</button>
-            <button class="menu-btn" onclick="toggleWindow('craft-window')">Крафт (C)</button>
+            <button id="btn-inventory" class="menu-btn" onclick="toggleWindow('inventory-window')">Inventory (I)</button>
+            <button id="btn-craft" class="menu-btn" onclick="toggleWindow('craft-window')">Craft (C)</button>
         </div>
 
         <div id="inventory-window" class="game-window hidden">
-            <div class="window-header"><h3>Инвентарь</h3><button class="close-btn" onclick="toggleWindow('inventory-window')">×</button></div>
+            <div class="window-header">
+                <h3>Inventory</h3>
+                <button class="close-btn" onclick="toggleWindow('inventory-window')">×</button>
+            </div>
             <div class="window-content">
-                <div class="res-item">Дерево: <span id="res-wood">0</span></div>
-                <div class="res-item">Камень: <span id="res-stone">0</span></div>
+                <div class="res-item">Wood: <span id="res-wood">0</span></div>
+                <div class="res-item">Stone: <span id="res-stone">0</span></div>
             </div>
         </div>
 
+        <!-- ЧЕТКИЕ АНГЛИЙСКИЕ НАЗВАНИЯ В КРАФТЕ -->
         <div id="craft-window" class="game-window hidden">
-            <div class="window-header"><h3>Крафт блоков</h3><button class="close-btn" onclick="toggleWindow('craft-window')">×</button></div>
+            <div class="window-header">
+                <h3>Crafting Recipes</h3>
+                <button class="close-btn" onclick="toggleWindow('craft-window')">×</button>
+            </div>
             <div class="window-content grid">
-                <div class="craft-item" onclick="craftItem('wood_wall')"><span>Дер. Стена</span><span class="item-cost">10 Дер.</span></div>
-                <div class="craft-item" onclick="craftItem('stone_wall')"><span>Кам. Стена</span><span class="item-cost">15 Кам.</span></div>
-                <div class="craft-item" onclick="craftItem('spike')"><span>Шипы</span><span class="item-cost">10Д / 5К</span></div>
+                <div class="craft-item" onclick="craftItem('wood_wall')">
+                    <div class="item-name">Wood Wall</div>
+                    <div class="item-cost">10 Wood</div>
+                </div>
+                <div class="craft-item" onclick="craftItem('stone_wall')">
+                    <div class="item-name">Stone Wall</div>
+                    <div class="item-cost">15 Stone</div>
+                </div>
+                <div class="craft-item" onclick="craftItem('spike')">
+                    <div class="item-name">Spike</div>
+                    <div class="item-cost">10 Wood, 5 Stone</div>
+                </div>
+                <div class="craft-item" onclick="craftItem('door')">
+                    <div class="item-name">Door</div>
+                    <div class="item-cost">20 Wood</div>
+                </div>
             </div>
         </div>
 
+        <!-- ХОТБАР -->
         <div id="hotbar">
-            <div class="slot active" data-slot="1"><span>1</span><div class="slot-icon">Топор</div></div>
-            <div class="slot" data-slot="2"><span>2</span><div class="slot-icon">Кирка</div></div>
-            <div class="slot" data-slot="3"><span>3</span><div class="slot-icon">Пусто</div></div>
-            <div class="slot" data-slot="4"><span>4</span><div class="slot-icon">Пусто</div></div>
-            <div class="slot" data-slot="5"><span>5</span><div class="slot-icon">Пусто</div></div>
-        </div>
-
-        <div id="radar-container">
-            <canvas id="radarCanvas" width="150" height="150"></canvas>
+            <div class="slot active" data-slot="1"><span>1</span><div class="slot-icon">Empty</div></div>
+            <div class="slot" data-slot="2"><span>2</span><div class="slot-icon">Empty</div></div>
+            <div class="slot" data-slot="3"><span>3</span><div class="slot-icon">Empty</div></div>
+            <div class="slot" data-slot="4"><span>4</span><div class="slot-icon">Empty</div></div>
+            <div class="slot" data-slot="5"><span>5</span><div class="slot-icon">Empty</div></div>
         </div>
     </div>
 
