@@ -10,6 +10,9 @@
 
     <canvas id="gameCanvas"></canvas>
 
+    <!-- ТЕКСТОВЫЙ ЛОГ ДОБЫЧИ (СНИЗУ СЛЕВА) -->
+    <div id="loot-log"></div>
+
     <!-- СТАРТОВОЕ МЕНЮ -->
     <div id="main-menu">
         <div class="menu-box">
@@ -23,9 +26,9 @@
     <!-- ИГРОВОЙ ИНТЕРФЕЙС -->
     <div id="game-ui" class="hidden">
         
-        <!-- МИНИ-КАРТА / РАДАР (КРИТИЧЕСКИ ВАЖНО ДЛЯ ui.js) -->
-        <div id="radar-container" style="position: absolute; bottom: 20px; right: 20px; background: rgba(0,0,0,0.5); border: 3px solid #222; border-radius: 50%; overflow: hidden; width: 150px; height: 150px; z-index: 10;">
-            <canvas id="radarCanvas" width="150" height="150"></canvas>
+        <!-- МИНИ-КАРТА / РАДАР -->
+        <div id="radar-container">
+            <canvas id="radarCanvas" width="180" height="120"></canvas>
         </div>
 
         <div id="left-menu-container">
@@ -41,16 +44,30 @@
             <div class="window-content">
                 <div class="res-item">Wood: <span id="res-wood">0</span></div>
                 <div class="res-item">Stone: <span id="res-stone">0</span></div>
+                <div class="res-item">Gold: <span id="res-gold">0</span></div>
+                <div class="res-item">Meat: <span id="res-meat">0</span></div>
             </div>
         </div>
 
-        <!-- ЧЕТКИЕ АНГЛИЙСКИЕ НАЗВАНИЯ В КРАФТЕ -->
+        <!-- ПОЛНЫЙ СПИСОК КРАФТА -->
         <div id="craft-window" class="game-window hidden">
             <div class="window-header">
                 <h3>Crafting Recipes</h3>
                 <button class="close-btn" onclick="toggleWindow('craft-window')">×</button>
             </div>
             <div class="window-content grid">
+                <div class="craft-item" onclick="craftItem('axe')">
+                    <div class="item-name">Axe</div>
+                    <div class="item-cost">20 Wood, 10 Stone</div>
+                </div>
+                <div class="craft-item" onclick="craftItem('pickaxe')">
+                    <div class="item-name">Pickaxe</div>
+                    <div class="item-cost">20 Wood, 15 Stone</div>
+                </div>
+                <div class="craft-item" onclick="craftItem('sword')">
+                    <div class="item-name">Sword</div>
+                    <div class="item-cost">30 Wood, 20 Stone</div>
+                </div>
                 <div class="craft-item" onclick="craftItem('wood_wall')">
                     <div class="item-name">Wood Wall</div>
                     <div class="item-cost">10 Wood</div>
