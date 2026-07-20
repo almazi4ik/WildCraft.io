@@ -7,21 +7,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- ВОЗВРАЩАЕМ МЕНЮ -->
-    <div id="main-menu">
-        <div class="menu-box">
-            <h1>WildCraft.io</h1>
-            <input type="text" id="nickname-input" placeholder="Никнейм..." value="Player">
-            <button id="btn-play">ИГРАТЬ</button>
-        </div>
+    <div id="ui">
+        <h1>WildCraft.io</h1>
+        <p>Управление: W, A, S, D</p>
     </div>
-    
     <canvas id="gameCanvas"></canvas>
 
-    <!-- Сначала подключаем библиотеку, потом наши скрипты -->
-    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-    <script src="network.js"></script>
-    <script src="ui.js"></script>
-    <script src="render.js"></script>
+    <!-- Подключаем клиент socket.io и наш скрипт -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
 </body>
 </html>
